@@ -19,7 +19,7 @@ var fs = require("fs");
 
 if (fs.existsSync("faucet.json")) {
   const { mnemonic, secret, password, email } = require("./faucet.json");
-  module.exports.networks.push({
+  module.exports.networks.delphinet = {
     host: "https://delphinet.smartpy.io",
     port: 443,
     network_id: "*",
@@ -28,5 +28,5 @@ if (fs.existsSync("faucet.json")) {
     password,
     email,
     type: "tezos"
-  });
+  };
 }
