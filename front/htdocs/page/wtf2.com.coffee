@@ -5,13 +5,24 @@ module.exports =
   
   mount : ()->
     @comic_select 0
+    document.addEventListener "keydown", @handler = (e)=>
+      switch e.keyCode
+        when Keymap.PAGEDOWN
+          e.preventDefault()
+          e.stopPropagation()
+          idx = @state.selected_comic_idx+1
+          if wtf_list[idx]?
+            @comic_select idx
+      return
+  
+  unmount : ()->
+    document.removeEventListener "keydown", @handler
   
   comic_select : (idx)->
     @set_state
       selected_comic_idx: idx
       selected_comic    : wtf_list[idx]
     
-  
   render : ()->
     Page_wrap {
       com   : @
