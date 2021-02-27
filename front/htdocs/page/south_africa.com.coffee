@@ -23,7 +23,7 @@ module.exports =
                   verticalAlign : "top"
               }
                 img {
-                  src: "/img/south_africa_comics.jpg"
+                  src: "img/south_africa_comics.jpg"
                   style:
                     display : "block"
                     width : "600"
