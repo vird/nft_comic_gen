@@ -1,0 +1,31 @@
+function mk_person(name) {
+  puppets.persons[name.toLowerCase()] = {
+    category:"cryptocurrency",
+    name:name.toUpperCase(),
+    stencils:comicgenerator.mergeStencils([
+      stencils.basiclogo.stencils,
+      [{
+        withid:"logo",
+        stencil:{
+          attributes:{
+            src:"%server%cels/cryptocurrency/"+name.toUpperCase()+".png"
+          }
+        }
+      }]
+    ]),
+    attributes:stencils.basiclogo.attributes,
+    outerbox:stencils.basiclogo.outerbox,
+    innerbox:stencils.basiclogo.innerbox
+  };
+}
+mk_person("ETH");
+mk_person("TEZ");
+mk_person("THANOS");
+mk_person("QUIPUSWAP");
+mk_person("BOT");
+mk_person("DEXTER");
+mk_person("ATOMEX");
+mk_person("UNISWAP");
+mk_person("SERUM");
+mk_person("OPENSEA");
+mk_person("DYNAMOKYIV");
