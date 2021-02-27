@@ -1,0 +1,9 @@
+html, body {
+  height : 100%;
+  margin : 0px;
+  /* https://la.by/forum/dizayn-i-programmirovanie/samyy-udobnyy-dlya-chteniya-shrift-v-internete */
+  font-family  : Verdana, Arial, Helvetica, sans-serif;
+}
+#mount_point {
+  height : 100%
+}

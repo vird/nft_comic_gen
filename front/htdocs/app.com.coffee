@@ -1,141 +1,65 @@
 module.exports =
-  state : 
-    width : 700
-    script_text : """
-      "95% DeFi"
-      
-      PANEL with light openspace and office
-      Lucy busted starving mouth SAYS TO SELF "YEILD FARMING..."
-      
-      PANEL with light openspace and office
-      Lucy busted starving mouth SAYS TO SELF "APY 2000%..."
-      
-      PANEL with light openspace and office
-      Lucy busted starving mouth SAYS TO SELF "PANCAKE..."
-      
-      PANEL with light openspace and office
-      ETH looking right SAYS "Знаешь, а ICO это высоко-интеллектуально было"
-      TEZ 
-      
-      PANEL with light openspace and office
-      ETH looking right
-      TEZ serious REPLIES "true... true..."
-      
-      """#"
-    publish_in_progress : false
-  
   mount : ()->
-    ev.on "wallet_connect", @handler = ()=>@force_update()
-  
-  unmount : ()->
-    ev.off "wallet_connect", @handler
-  
-  publish : ()->
-    @set_state publish_in_progress : true
-    await @_publish defer()
-    @set_state publish_in_progress : false
-  
-  _publish : (on_end)->
-    comic =
-      width       : @state.width
-      script_text : @state.script_text
-    buf = comic_encode comic
+    route_list = [
+      ""
+      "2"
+      "3"
+      # "connect"
+      "explorer"
+      "editor"
+      "use_case"
+      "south_africa"
+      "south_africa_2"
+      "extra_use_case"
+      "todo"
+      "links"
+      "wtf"
+      "wtf2"
+    ]
+    window.route2com_hash =
+      ""              : {com:"Page_intro",          title:"Привет"}
+      "2"             : {com:"Page_glossary",       title:"Что в проекте"}
+      "3"             : {com:"Page_nft",            title:"NFT"}
+      # "connect"       : {com:"Page_connect",        title:"Connect"}
+      "explorer"      : {com:"Page_explorer",       title:"Explorer"}
+      "editor"        : {com:"Page_editor",         title:"Editor"}
+      "use_case"      : {com:"Page_use_case",       title:"Use case"}
+      "south_africa"  : {com:"Page_south_africa",   title:"ЮАР"}
+      "south_africa_2": {com:"Page_south_africa_2", title:"ЮАР wtf"}
+      "extra_use_case": {com:"Page_extra_use_case", title:"Extra use case"}
+      "todo"          : {com:"Page_todo",           title:"TODO"}
+      "links"         : {com:"Page_links",          title:"Links"}
+      "wtf"           : {com:"Page_wtf",            title:"wtf"}
+      "wtf2"          : {com:"Page_wtf2",           title:"wtf2"}
     
-    token_id_offset = storage.assets.metadata.next_token_id.toNumber()
-    token_def = {
-      from_ : token_id_offset
-      to_   : token_id_offset+1
-    }
-    metadata = {
-      token_id: token_id_offset,
-      token_info : taquito.MichelsonMap.fromLiteral({
-        "content" : uint8_array2hex buf
-      })
-    }
-    owners = [wallet_address]
+    window.map_hash = {}
+    for route in route_list # proper order
+      v = route2com_hash[route]
+      window.map_hash[v.com] = v.title
     
-    await contract.methods.mint_tokens(
-      token_def.from_, token_def.to_,
-      metadata.token_id, metadata.token_info,
-      # BUG
-      `owners`).send().cb defer(err, op);       return on_end err if err
-    await op.confirmation().cb      defer(err); return on_end err if err
-    await contract_storage_refresh  defer(err); return on_end err if err
-    
-    on_end()
+    document.onkeydown = (e)=>
+      if e.altKey
+        switch e.keyCode
+          when Keymap.LEFT
+            e.preventDefault()
+            idx = route_list.idx @path
+            if (route = route_list[idx-1])?
+              route_go route
+            
+          when Keymap.RIGHT
+            e.preventDefault()
+            idx = route_list.idx @path
+            if (route = route_list[idx+1])?
+              route_go route
+          
+      return
   
   render : ()->
-    div
-      div {
-        style:
-          color     : theme.GRAY_OPT
-          fontSize  : 20
-      }
-        span "Для справки по движку "
-        a {href:"http://www.kesiev.com/stripthis/stripthis/comic-studio.html"}, "http://www.kesiev.com/stripthis/stripthis/comic-studio.html"
-      
-      div {
-        style :
-          textAlign  : "left"
-          lineHeight : "30px"
-      }
-        table
-          tbody
-            tr
-              td
-                span "width "
-                Number_input bind2 @, "width"
-                div {
-                  style:
-                    border : "1px solid black"
-                }
-                  Extended_textarea bind2 @, "script_text"
-                div {
-                  style:
-                    width : "100%"
-                    paddingTop : 20
-                }
-                  comic =
-                    width       : @state.width
-                    script_text : @state.script_text
-                  res = comic_encode comic
-                  div {
-                    style:
-                      textAlign : "center"
-                  }, "publish size : #{res.length}"
-                  if !window.wallet
-                    Button {
-                      label   : "Connect wallet"
-                      on_click: ()=>wallet_connect()
-                      style:
-                        display     : "block"
-                        marginLeft  : "auto"
-                        marginRight : "auto"
-                    }
-                  else
-                    if @state.publish_in_progress
-                      Spinner {}
-                    else
-                      Button {
-                        label : "Publish as #{wallet_address}"
-                        style:
-                          display     : "block"
-                          marginLeft  : "auto"
-                          marginRight : "auto"
-                        on_click : ()=>@publish()
-                      }
-              td
-                div {
-                  style:
-                    width : "100%"
-                    paddingTop : 20
-                }
-                  div {
-                    style:
-                      width : @state.width
-                      marginLeft : "auto"
-                      marginRight: "auto"
-                  }
-                    Comic_render {
-                      value : @state.script_text
-                    }
+    Router_multi {
+      render : (hash)=>
+        @path = path = hash[""]?.path or ""
+        if com = window.route2com_hash[path]
+          window[com.com] {}
+        else
+          div "404"
+    }
