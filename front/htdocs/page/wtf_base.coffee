@@ -1,32 +1,32 @@
 window.wtf_list = [
-  {
-    title : "95% defi"
-    width : 700
-    script_text : """
-      "95% DeFi"
-      
-      PANEL with light openspace and office
-      Lucy busted starving mouth SAYS TO SELF "YEILD FARMING..."
-      
-      PANEL with light openspace and office
-      Lucy busted starving mouth SAYS TO SELF "APY 2000%..."
-      
-      PANEL with light openspace and office
-      Lucy busted starving mouth SAYS TO SELF "PANCAKE..."
-      
-      PANEL with light openspace and office
-      ETH looking right SAYS "Знаешь, а ICO это высоко-интеллектуально было"
-      TEZ 
-      
-      PANEL with light openspace and office
-      ETH looking right
-      TEZ serious REPLIES "true... true..."
-      
-      """#"
-  }
+# {
+#   title : "95% defi"
+#   width : 700
+#   script_text : """
+#     "95% DeFi"
+#     
+#     PANEL with light openspace and office
+#     Lucy busted starving mouth SAYS TO SELF "YEILD FARMING..."
+#     
+#     PANEL with light openspace and office
+#     Lucy busted starving mouth SAYS TO SELF "APY 2000%..."
+#     
+#     PANEL with light openspace and office
+#     Lucy busted starving mouth SAYS TO SELF "PANCAKE..."
+#     
+#     PANEL with light openspace and office
+#     ETH looking right SAYS "Знаешь, а ICO это высоко-интеллектуально было"
+#     TEZ 
+#     
+#     PANEL with light openspace and office
+#     ETH looking right
+#     TEZ serious REPLIES "true... true..."
+#     
+#     """#"
+# }
   {
     title : "Арбитражные боты"
-    width : 1000
+    width : 940
     script_text : """
       "Арбитражные боты"
             
@@ -195,7 +195,7 @@ window.wtf_list = [
   
   {
     title : "Я игрался с логотипом thanos'а"
-    width : 950
+    width : 940
     script_text : """
       "Зачем нужен Thanos (или пока я писал этот комикс thanos ребренднулся)"
       

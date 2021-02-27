@@ -3,6 +3,15 @@ module.exports =
     selected_comic_idx: -1
     selected_comic    : null
   
+  mount : ()->
+    @comic_select 0
+  
+  comic_select : (idx)->
+    @set_state
+      selected_comic_idx: idx
+      selected_comic    : wtf_list[idx]
+    
+  
   render : ()->
     Page_wrap {
       com   : @
@@ -32,9 +41,7 @@ module.exports =
                         style:
                           cursor: "pointer"
                         on_click : ()=>
-                          @set_state
-                            selected_comic_idx: k
-                            selected_comic    : wtf_list[k]
+                          @comic_select k
                       }
                         td {
                           style:

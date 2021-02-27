@@ -10,6 +10,7 @@ module.exports =
       @force_update()
       @title_refresh()
     @title_refresh()
+    @comic_select 0
   
   unmount : ()->
     ev.off "storage_load", @handler
@@ -28,6 +29,37 @@ module.exports =
     
     return
   
+  comic_select : (idx)->
+    @set_state
+      selected_comic_idx : idx
+      load_in_progress : true
+    
+    def = window.storage.assets.metadata.token_defs[idx]
+    await window.storage.assets.metadata.metadata.get(def).cb defer(err, encoded);
+    if err
+      perr err
+    else
+      content     = encoded.token_info.get("content")
+      content_arr = hex2uint8_array content
+      try
+        content_json = comic_decode content_arr
+        @set_state selected_comic : content_json
+      catch err
+        perr err
+        @set_state selected_comic :
+          width : 700
+          script_text : """
+            "Something wrong"
+            
+            PANEL with light openspace and office
+            Lucy busted starving mouth SAYS TO SELF "..."
+            
+            """#"
+    
+    # comic_decode
+    @set_state
+      load_in_progress : false
+    
   render : ()->
     Page_wrap {
       com   : @
@@ -59,36 +91,7 @@ module.exports =
                         style:
                           cursor: "pointer"
                         on_click : ()=>
-                          @set_state
-                            selected_comic_idx : k
-                            load_in_progress : true
-                          
-                          def = window.storage.assets.metadata.token_defs[k]
-                          await window.storage.assets.metadata.metadata.get(def).cb defer(err, encoded);
-                          if err
-                            perr err
-                          else
-                            content     = encoded.token_info.get("content")
-                            content_arr = hex2uint8_array content
-                            try
-                              content_json = comic_decode content_arr
-                              @set_state selected_comic : content_json
-                            catch err
-                              perr err
-                              @set_state selected_comic :
-                                width : 700
-                                script_text : """
-                                  "Something wrong"
-                                  
-                                  PANEL with light openspace and office
-                                  Lucy busted starving mouth SAYS TO SELF "..."
-                                  
-                                  """#"
-                          
-                          # comic_decode
-                          @set_state
-                            load_in_progress : false
-                          
+                          @comic_select k
                       }
                         td {
                           style:
