@@ -22,6 +22,7 @@ execSync "rm -rf #{build_folder}/*"
 static_folder_list = [
   "cels"
   "font"
+  "img"
 ]
 
 for folder in static_folder_list
