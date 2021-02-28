@@ -47,3 +47,33 @@ module.exports =
                   tr
                     td "потрогать"
                     td a {href:"https://vird.github.io/nft_comic_gen_web/"}, "https://vird.github.io/nft_comic_gen_web/"
+              
+              div {style:height:20}
+              div
+                div "Команда"
+                div
+                  span "Глушковский Сергей"
+                div {style:paddingLeft:section_offset}
+                  div
+                    img {
+                      src : "img/favicon_github.png"
+                      style:
+                        width : 16
+                        height: 16
+                        position: "relative"
+                        top : 2
+                    }
+                    span " "
+                    a {href:"https://github.com/vird"}, "github.com/vird"
+                  div
+                    img {
+                      src : "img/favicon_facebook.png"
+                      style:
+                        width : 16
+                        height: 16
+                        position: "relative"
+                        top : 2
+                    }
+                    span " "
+                    a {href:"https://facebook.com/virdvird"}, "facebook.com/virdvird"
+                  

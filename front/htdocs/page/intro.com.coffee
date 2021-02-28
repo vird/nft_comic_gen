@@ -37,3 +37,8 @@ module.exports =
               color     : theme.GRAY_OPT
               fontSize  : 20
           }, "Теперь с комиксами"
+          div {
+            style:
+              paddingTop: 20
+              fontSize  : 30
+          }, "Изначальная идея: интерактивные комиксы с use case'ами для смарт контрактов"
