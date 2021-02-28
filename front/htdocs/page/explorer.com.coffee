@@ -9,6 +9,8 @@ module.exports =
     ev.on "storage_load", @handler = ()=>
       @force_update()
       @title_refresh()
+      @comic_select 0
+    
     @title_refresh()
     @comic_select 0
   
@@ -30,6 +32,7 @@ module.exports =
     return
   
   comic_select : (idx)->
+    return if !window.storage
     @set_state
       selected_comic_idx : idx
       load_in_progress : true
